@@ -1,0 +1,51 @@
+spring:
+  jackson:
+    time-zone: GMT+7
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 115MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://${DB_HOST}:${DB_PORT};databaseName=${DB_NAME};encrypt=true;trustServerCertificate=true;
+#    username: sa
+#    password: Abc123!@#
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    tomcat:
+      connection-properties: useUnicode=true
+      characterEncoding: utf-8
+  data:
+    cassandra:
+      schema-action: create_if_not_exists
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        globally_quoted_identifiers: true
+        enable_lazy_load_no_trans: true
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+logging:
+  level:
+    org:
+      hibernate:
+        sql: DEBUG
+      type:
+        descriptor:
+          sql:
+            BasicBinder:
+              TRACE
+      springframework:
+        web: TRACE
+cloudinary:
+  max-file-size: 20MB
+  max-image-width: 5000
+
+

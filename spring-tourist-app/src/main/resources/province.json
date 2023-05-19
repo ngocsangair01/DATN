@@ -1,0 +1,380 @@
+[
+  {
+    "name": "Hà Nội",
+    "divisionType": "city",
+    "longitude": 105.8341598,
+    "latitude": 21.0277644
+  },
+  {
+    "name": "Hà Giang",
+    "divisionType": "province",
+    "longitude": 104.9388853,
+    "latitude": 22.7662056
+  },
+  {
+    "name": "Cao Bằng",
+    "divisionType": "province",
+    "longitude": 106.2522143,
+    "latitude": 22.635689
+  },
+  {
+    "name": "Bắc Kạn",
+    "divisionType": "province",
+    "longitude": 105.876004,
+    "latitude": 22.3032923
+  },
+  {
+    "name": "Tuyên Quang",
+    "divisionType": "province",
+    "longitude": 105.3131185,
+    "latitude": 22.1726708
+  },
+  {
+    "name": "Lào Cai",
+    "divisionType": "province",
+    "longitude": 104.1487055,
+    "latitude": 22.3380865
+  },
+  {
+    "name": "Điện Biên",
+    "divisionType": "province",
+    "longitude": 103.1076525,
+    "latitude": 21.8042309
+  },
+  {
+    "name": "Lai Châu",
+    "divisionType": "province",
+    "longitude": 103.3119085,
+    "latitude": 22.3686613
+  },
+  {
+    "name": "Sơn La",
+    "divisionType": "province",
+    "longitude": 103.7289167,
+    "latitude": 21.1022284
+  },
+  {
+    "name": "Yên Bái",
+    "divisionType": "province",
+    "longitude": 104.4551361,
+    "latitude": 21.6837923
+  },
+  {
+    "name": "Hoà Bình",
+    "divisionType": "province",
+    "longitude": 105.3131185,
+    "latitude": 20.6861265
+  },
+  {
+    "name": "Thái Nguyên",
+    "divisionType": "province",
+    "longitude": 105.876004,
+    "latitude": 21.5613771
+  },
+  {
+    "name": "Lạng Sơn",
+    "divisionType": "province",
+    "longitude": 106.6291304,
+    "latitude": 21.8563705
+  },
+  {
+    "name": "Quảng Ninh",
+    "divisionType": "province",
+    "longitude": 107.2925144,
+    "latitude": 21.006382
+  },
+  {
+    "name": "Bắc Giang",
+    "divisionType": "province",
+    "longitude": 106.6291304,
+    "latitude": 21.3014947
+  },
+  {
+    "name": "Phú Thọ",
+    "divisionType": "province",
+    "longitude": 105.2045573,
+    "latitude": 21.268443
+  },
+  {
+    "name": "Vĩnh Phúc",
+    "divisionType": "province",
+    "longitude": 105.5474373,
+    "latitude": 21.3608805
+  },
+  {
+    "name": "Bắc Ninh",
+    "divisionType": "province",
+    "longitude": 106.1110501,
+    "latitude": 21.121444
+  },
+  {
+    "name": "Hải Dương",
+    "divisionType": "province",
+    "longitude": 106.3206861,
+    "latitude": 20.9385958
+  },
+  {
+    "name": "Hải Phòng",
+    "divisionType": "city",
+    "longitude": 106.6880841,
+    "latitude": 20.8449115
+  },
+  {
+    "name": "Hưng Yên",
+    "divisionType": "province",
+    "longitude": 106.0169971,
+    "latitude": 20.8525711
+  },
+  {
+    "name": "Thái Bình",
+    "divisionType": "province",
+    "longitude": 106.3934777,
+    "latitude": 20.5386936
+  },
+  {
+    "name": "Hà Nam",
+    "divisionType": "province",
+    "longitude": 105.92299,
+    "latitude": 20.5835196
+  },
+  {
+    "name": "Nam Định",
+    "divisionType": "province",
+    "longitude": 106.2051484,
+    "latitude": 20.2791804
+  },
+  {
+    "name": "Ninh Bình",
+    "divisionType": "province",
+    "longitude": 105.92299,
+    "latitude": 20.2129969
+  },
+  {
+    "name": "Thanh Hóa",
+    "divisionType": "province",
+    "longitude": 105.7851816,
+    "latitude": 19.806692
+  },
+  {
+    "name": "Nghệ An",
+    "divisionType": "province",
+    "longitude": 104.9200365,
+    "latitude": 19.2342489
+  },
+  {
+    "name": "Hà Tĩnh",
+    "divisionType": "province",
+    "longitude": 105.6745247,
+    "latitude": 18.2943776
+  },
+  {
+    "name": "Quảng Bình",
+    "divisionType": "province",
+    "longitude": 106.3487474,
+    "latitude": 17.6102715
+  },
+  {
+    "name": "Quảng Trị",
+    "divisionType": "province",
+    "longitude": 106.963409,
+    "latitude": 16.7943472
+  },
+  {
+    "name": "Thừa Thiên Huế",
+    "divisionType": "province",
+    "longitude": 107.5905326,
+    "latitude": 16.467397
+  },
+  {
+    "name": "Đà Nẵng",
+    "divisionType": "city",
+    "longitude": 108.0717219,
+    "latitude": 16.0544563
+  },
+  {
+    "name": "Quảng Nam",
+    "divisionType": "province",
+    "longitude": 108.019102,
+    "latitude": 15.5393538
+  },
+  {
+    "name": "Quảng Ngãi",
+    "divisionType": "province",
+    "longitude": 108.7125791,
+    "latitude": 15.0759838
+  },
+  {
+    "name": "Bình Định",
+    "divisionType": "province",
+    "longitude": 108.902683,
+    "latitude": 14.1665324
+  },
+  {
+    "name": "Phú Yên",
+    "divisionType": "province",
+    "longitude": 109.0928764,
+    "latitude": 13.0881861
+  },
+  {
+    "name": "Khánh Hòa",
+    "divisionType": "province",
+    "longitude": 109.0526076,
+    "latitude": 12.2585098
+  },
+  {
+    "name": "Ninh Thuận",
+    "divisionType": "province",
+    "longitude": 108.8629572,
+    "latitude": 11.6738767
+  },
+  {
+    "name": "Bình Thuận",
+    "divisionType": "province",
+    "longitude": 108.0720781,
+    "latitude": 11.0903703
+  },
+  {
+    "name": "Kon Tum",
+    "divisionType": "province",
+    "longitude": 107.83885,
+    "latitude": 14.661167
+  },
+  {
+    "name": "Gia Lai",
+    "divisionType": "province",
+    "longitude": 108.109375,
+    "latitude": 13.8078943
+  },
+  {
+    "name": "Đắk Lắk",
+    "divisionType": "province",
+    "longitude": 108.2377519,
+    "latitude": 12.7100116
+  },
+  {
+    "name": "Đắk Nông",
+    "divisionType": "province",
+    "longitude": 107.609806,
+    "latitude": 12.2646476
+  },
+  {
+    "name": "Lâm Đồng",
+    "divisionType": "province",
+    "longitude": 108.1428669,
+    "latitude": 11.5752791
+  },
+  {
+    "name": "Bình Phước",
+    "divisionType": "province",
+    "longitude": 106.7234639,
+    "latitude": 11.7511894
+  },
+  {
+    "name": "Tây Ninh",
+    "divisionType": "province",
+    "longitude": 106.0640179,
+    "latitude": 11.3494766
+  },
+  {
+    "name": "Bình Dương",
+    "divisionType": "province",
+    "longitude": 106.477017,
+    "latitude": 11.3254024
+  },
+  {
+    "name": "Đồng Nai",
+    "divisionType": "province",
+    "longitude": 107.1675976,
+    "latitude": 11.0686305
+  },
+  {
+    "name": "Bà Rịa - Vũng Tàu",
+    "divisionType": "province",
+    "longitude": 107.2429976,
+    "latitude": 10.5417397
+  },
+  {
+    "name": "Thành phố Hồ Chí Minh",
+    "divisionType": "city",
+    "longitude": 106.6296638,
+    "latitude": 10.8230989
+  },
+  {
+    "name": "Long An",
+    "divisionType": "province",
+    "longitude": 106.2431205,
+    "latitude": 10.695572
+  },
+  {
+    "name": "Tiền Giang",
+    "divisionType": "province",
+    "longitude": 106.3420504,
+    "latitude": 10.4493324
+  },
+  {
+    "name": "Bến Tre",
+    "divisionType": "province",
+    "longitude": 106.4405872,
+    "latitude": 10.1081553
+  },
+  {
+    "name": "Trà Vinh",
+    "divisionType": "province",
+    "longitude": 106.2992912,
+    "latitude": 9.812740999999999
+  },
+  {
+    "name": "Vĩnh Long",
+    "divisionType": "province",
+    "longitude": 106.0169971,
+    "latitude": 10.0861281
+  },
+  {
+    "name": "Đồng Tháp",
+    "divisionType": "province",
+    "longitude": 105.6881788,
+    "latitude": 10.4937989
+  },
+  {
+    "name": "An Giang",
+    "divisionType": "province",
+    "longitude": 105.1258955,
+    "latitude": 10.5215836
+  },
+  {
+    "name": "Kiên Giang",
+    "divisionType": "province",
+    "longitude": 105.1258955,
+    "latitude": 9.8249587
+  },
+  {
+    "name": "Cần Thơ",
+    "divisionType": "city",
+    "longitude": 105.7468535,
+    "latitude": 10.0451618
+  },
+  {
+    "name": "Hậu Giang",
+    "divisionType": "province",
+    "longitude": 105.6412527,
+    "latitude": 9.757897999999999
+  },
+  {
+    "name": "Sóc Trăng",
+    "divisionType": "province",
+    "longitude": 105.9599539,
+    "latitude": 9.6003688
+  },
+  {
+    "name": "Bạc Liêu",
+    "divisionType": "province",
+    "longitude": 105.5136472,
+    "latitude": 9.251555500000002
+  },
+  {
+    "name": "Cà Mau",
+    "divisionType": "province",
+    "longitude": 105.1258955,
+    "latitude": 8.962409899999999
+  }
+]
