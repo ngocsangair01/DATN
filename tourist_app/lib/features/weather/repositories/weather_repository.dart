@@ -20,8 +20,10 @@ class WeatherRepository extends BaseRepository {
       RequestMethod.GET,
       jsonMap: weatherRequestListModel.toJson(),
     );
-    return BaseResponseList<WeatherResponseListModel>.fromJson(
-        response, (x) => WeatherResponseListModel.fromJson(x));
+    BaseResponseList<WeatherResponseListModel> result =
+        BaseResponseList<WeatherResponseListModel>.fromJson(
+            response, (x) => WeatherResponseListModel.fromJson(x));
+    return result;
   }
 
   Future<BaseResponse<WeatherResponseModel>> getListWeatherForecast(

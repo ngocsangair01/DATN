@@ -16,27 +16,31 @@ class CardUtils {
     double blurRadius = 10,
     List<BoxShadow>? boxShadows,
     Color? backgroundColor,
+    Function? function,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: backgroundColor ?? Colors.white,
-        //Here goes the same radius, u can put into a var or function
-        borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(radiusAll ?? radiusBottomRight ?? 0),
-          bottomLeft: Radius.circular(radiusAll ?? radiusBottomLeft ?? 0),
-          topLeft: Radius.circular(radiusAll ?? radiusTopLeft ?? 0),
-          topRight: Radius.circular(radiusAll ?? radiusTopRight ?? 0),
+    return InkWell(
+      onTap: () => function?.call(),
+      child: Container(
+        decoration: BoxDecoration(
+          color: backgroundColor ?? Colors.white,
+          //Here goes the same radius, u can put into a var or function
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(radiusAll ?? radiusBottomRight ?? 0),
+            bottomLeft: Radius.circular(radiusAll ?? radiusBottomLeft ?? 0),
+            topLeft: Radius.circular(radiusAll ?? radiusTopLeft ?? 0),
+            topRight: Radius.circular(radiusAll ?? radiusTopRight ?? 0),
+          ),
+          boxShadow: boxShadows,
         ),
-        boxShadow: boxShadows,
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(radiusAll ?? radiusBottomRight ?? 0),
-          bottomLeft: Radius.circular(radiusAll ?? radiusBottomLeft ?? 0),
-          topLeft: Radius.circular(radiusAll ?? radiusTopLeft ?? 0),
-          topRight: Radius.circular(radiusAll ?? radiusTopRight ?? 0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(radiusAll ?? radiusBottomRight ?? 0),
+            bottomLeft: Radius.circular(radiusAll ?? radiusBottomLeft ?? 0),
+            topLeft: Radius.circular(radiusAll ?? radiusTopLeft ?? 0),
+            topRight: Radius.circular(radiusAll ?? radiusTopRight ?? 0),
+          ),
+          child: child,
         ),
-        child: child,
       ),
     );
   }
@@ -47,6 +51,7 @@ class CardUtils {
     double? heightImage,
     double? widthImage,
     double? radius,
+    Function? func,
   }) {
     return Column(
       children: [
@@ -54,7 +59,8 @@ class CardUtils {
           child: UtilWidget.buildImageWidget(url,
               heightImage: heightImage,
               widthImage: widthImage ?? double.infinity,
-              radius: radius),
+              radius: radius,
+              func: func),
         ),
         cardInfo.paddingSymmetric(
             horizontal: AppDimen.paddingSmall, vertical: AppDimen.paddingSmall)

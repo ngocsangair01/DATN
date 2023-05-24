@@ -55,14 +55,20 @@ Widget _buildWidget() {
                     ),
                     _buildBtn(
                       "SIGN UP",
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(AppRoutes.routeSignUp);
+                      },
                       color: AppColors.baseColorGreen,
                       fontColor: Colors.white,
                     ).paddingOnly(
                       top: AppDimen.paddingSmall,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(
+                          AppRoutes.routeHome,
+                        );
+                      },
                       child: const Text(
                         "Skip >>",
                         style: TextStyle(

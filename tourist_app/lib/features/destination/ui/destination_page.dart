@@ -19,6 +19,8 @@ import '../../../cores/utils/widget/utils_button.dart';
 import '../../../cores/utils/widget/utils_widget.dart';
 import '../../../cores/values/dimens.dart';
 import '../../../cores/values/image_asset.dart';
+import '../../../routes/routes.dart';
+import '../../destination_radius/uis/destination_radius_page.dart';
 import '../controllers/destination_ctrl_imp.dart';
 
 part 'destination_widget.dart';

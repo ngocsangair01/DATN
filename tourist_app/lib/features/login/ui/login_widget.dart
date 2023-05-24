@@ -48,81 +48,82 @@ Widget _buildWidget(LoginCtrl controller) {
             flex: 2,
             child: Form(
               key: controller.formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  UtilWidget.buildInput(
-                    controller.emailController,
-                    borderRadius: 50,
-                    height: AppDimen.heightBoxSearch,
-                    isRequired: true,
-                  ),
-                  WidgetConst.sizedBoxPadding,
-                  UtilWidget.buildInput(
-                    controller.passwordController,
-                    borderRadius: 50,
-                    height: AppDimen.heightBoxSearch,
-                    typeInput: TypeInput.password,
-                    isRequired: true,
-                  ),
-                  WidgetConst.sizedBoxPadding,
-                  // InkWell(
-                  //   onTap: () {
-                  //     controller.login();
-                  //   },
-                  //   child: UtilButton.buildButton(
-                  //     ButtonModel(
-                  //         height: AppDimen.heightBoxSearch,
-                  //         btnTitle: 'SIGN IN',
-                  //         textStyle: const TextStyle(
-                  //           fontFamily: FontAsset.fontLight,
-                  //           fontSize: 16,
-                  //           color: Colors.white,
-                  //         ),
-                  //         borderRadius: BorderRadius.circular(50),
-                  //         isShowLoading: controller.isShowLoading.value),
-                  //   ),
-                  // ),
-                  LoadingButton<LoginCtrl>(
-                    controller,
-                    title: "Login",
-                    func: controller.login,
-                  ),
-                  WidgetConst.sizedBoxPadding,
-                  UtilButton.buildTextButton(
-                    title: 'Forgot password',
-                    isUnderLineText: true,
-                  ),
-                ],
+              child: GetBuilder<LoginCtrl>(
+                builder: (controller) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    HIVE_APP.get('user_name') != null
+                        ? Text(
+                            HIVE_USER.get('user')?.username ?? "",
+                            style: const TextStyle(
+                              fontFamily: FontAsset.fontLight,
+                              fontSize: 20,
+                            ),
+                          )
+                        : UtilWidget.buildInput(
+                            controller.emailController,
+                            borderRadius: 50,
+                            height: AppDimen.heightBoxSearch,
+                            isRequired: true,
+                            hintText: "Username",
+                            isReadOnly: HIVE_APP.get('user_name') != null,
+                          ),
+                    WidgetConst.sizedBoxPadding,
+                    UtilWidget.buildInput(
+                      controller.passwordController,
+                      hintText: "Password",
+                      borderRadius: 50,
+                      height: AppDimen.heightBoxSearch,
+                      typeInput: TypeInput.password,
+                      isRequired: true,
+                      isReadOnly: controller.isShowLoadingSubmit.value,
+                      // isReadOnly: HIVE_APP.get('user_name') != null,
+                    ),
+                    WidgetConst.sizedBoxPadding,
+                    SizedBox(
+                      width: Get.width * AppDimen.resolutionWidgetTextEditing,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: LoadingButton<LoginCtrl>(
+                              controller,
+                              title: "Login",
+                              func: controller.login,
+                            ),
+                          ),
+                          UtilWidget.sizedBox10W,
+                          InkWell(
+                            onTap: () {
+                              controller.loginWithFingerPrint();
+                            },
+                            child: SizedBox(
+                              width: 45,
+                              height: 45,
+                              child: SvgPicture.asset(
+                                ImageAsset.imgFingerprint,
+                                color: AppColors.baseColorGreen,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    WidgetConst.sizedBoxPadding,
+                    UtilButton.buildTextButton(
+                      title: 'Change account',
+                      isUnderLineText: true,
+                      func: () {
+                        HIVE_USER.delete('user');
+                        HIVE_APP.delete('user_name');
+                        controller.update();
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ],
-      ),
-    ),
-  );
-}
-
-Widget _buildBtn(String content,
-    {Function()? onTap, Color? color, Color? fontColor}) {
-  return InkWell(
-    onTap: onTap,
-    child: Container(
-      width: Get.width / 1.3,
-      height: AppDimen.heightBoxSearch,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: Center(
-        child: Text(
-          content,
-          style: TextStyle(
-            fontSize: 16,
-            fontFamily: FontAsset.fontLight,
-            color: fontColor,
-          ),
-        ),
       ),
     ),
   );

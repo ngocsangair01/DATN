@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:timeline_list/timeline.dart';
-import 'package:timeline_list/timeline_model.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 import 'package:tourist_app/base/widgets/base_widget.dart';
 import 'package:tourist_app/features/itinerary/values/itinerary_values.dart';
+import 'package:tourist_app/features/map/models/display_itinenary_request.dart';
+import 'package:tourist_app/features/map/uis/map_page.dart';
 import '../../../cores/themes/box_shadows.dart';
 import '../../../cores/themes/colors.dart';
 import '../../../cores/utils/models/button_model.dart';

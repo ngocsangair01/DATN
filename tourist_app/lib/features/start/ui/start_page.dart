@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:tourist_app/base/widgets/base_widget.dart';
+import 'package:tourist_app/cores/apps/app_controller.dart';
 import 'package:tourist_app/cores/values/dimens.dart';
 import 'package:tourist_app/cores/values/font_asset.dart';
 import 'package:tourist_app/cores/values/image_asset.dart';
@@ -17,6 +18,7 @@ class StartPage extends BaseGetWidget {
 
   @override
   Widget buildWidgets() {
+    Get.put(AppController(), permanent: true);
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         systemNavigationBarColor: AppColors.statusBarColor(),

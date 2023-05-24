@@ -13,6 +13,8 @@ import '../../../base/repositories/base_repository.dart';
 import '../../../base/repositories/base_request.dart';
 import '../../../cores/values/url_strings.dart';
 import '../models/destination_by_province_request.dart';
+import '../models/destination_radius_request.dart';
+import '../models/destination_radius_response.dart';
 
 class DestinationRepository extends BaseRepository {
   DestinationRepository(BaseGetXController controller) : super(controller);
@@ -24,7 +26,6 @@ class DestinationRepository extends BaseRepository {
       RequestMethod.GET,
       jsonMap: destinationByProvinceRequest.toJson(),
     );
-    print(response);
     return BaseResponseList<DestinationModel>.fromJson(
         response, (x) => DestinationModel.fromJson(x));
   }
@@ -107,5 +108,55 @@ class DestinationRepository extends BaseRepository {
       func: (x) => DestinationModel.fromJson(x),
     );
     return result;
+  }
+
+  Future<BaseResponse<DestinationRadiusResponse>> getListDestinationRadius(
+      DestinationRadiusRequest destinationRadiusRequest) async {
+    FormData formDestination =
+        FormData.fromMap(destinationRadiusRequest.toJson());
+    var response = await baseSendRequest(
+      "${ApiUrl.urlDestination}/radius",
+      RequestMethod.GET,
+      jsonMap: formDestination,
+      isQueryParametersGet: false,
+    );
+    return BaseResponse<DestinationRadiusResponse>.fromJson(
+      response,
+      func: (x) => DestinationRadiusResponse.fromJson(x),
+    );
+  }
+
+  Future<BaseResponse<DestinationModel>> addFavoriteDestination(int id) async {
+    var response = await baseSendRequest(
+      "${ApiUrl.urlUser}${ApiUrl.urlFavoriteDes}?destinationId=$id",
+      RequestMethod.POST,
+    );
+    return BaseResponse<DestinationModel>.fromJson(
+      response,
+      func: (x) => DestinationModel.fromJson(x),
+    );
+  }
+
+  Future<BaseResponseList<DestinationModel>> viewFavoriteDestination() async {
+    var response = await baseSendRequest(
+      "${ApiUrl.urlUser}${ApiUrl.urlFavoriteDes}",
+      RequestMethod.GET,
+    );
+    return BaseResponseList<DestinationModel>.fromJson(
+      response,
+      (x) => DestinationModel.fromJson(x),
+    );
+  }
+
+  Future<BaseResponse<DestinationModel>> deleteFavoriteDestination(
+      int id) async {
+    var response = await baseSendRequest(
+      "${ApiUrl.urlUser}${ApiUrl.urlFavoriteDes}/$id",
+      RequestMethod.DELETE,
+    );
+    return BaseResponse<DestinationModel>.fromJson(
+      response,
+      func: (x) => DestinationModel.fromJson(x),
+    );
   }
 }

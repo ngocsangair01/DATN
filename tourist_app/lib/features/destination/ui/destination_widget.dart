@@ -91,15 +91,41 @@ Widget _buildBottomSheetDestination(DestinationCtrl controller) {
     title: "Destination",
     body: Column(
       children: [
-        UtilWidget.buildSearch(
-          hintSearch: "Search every thing",
-          borderColor: AppColors.baseColorGreen,
-          textEditingController: controller.textSearchController,
-          function: () {
-            controller.functionSearch();
-          },
-          autofocus: false,
-          isClear: controller.isClear,
+        Row(
+          children: [
+            Expanded(
+              child: UtilWidget.buildSearch(
+                hintSearch: "Search every thing",
+                borderColor: AppColors.baseColorGreen,
+                textEditingController: controller.textSearchController,
+                function: () {
+                  controller.functionSearch();
+                },
+                autofocus: false,
+                isClear: controller.isClear,
+              ),
+            ),
+            UtilWidget.sizedBox10W,
+            GestureDetector(
+              child: Container(
+                height: 40,
+                width: Get.width / 5,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    50,
+                  ),
+                  color: AppColors.baseColorGreen,
+                ),
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: Text("Radius"),
+                ),
+              ),
+              onTap: () {
+                Get.toNamed(AppRoutes.routeDestinationRadius);
+              },
+            ),
+          ],
         ),
         UtilWidget.sizedBox10,
         Expanded(

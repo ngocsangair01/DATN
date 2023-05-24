@@ -34,6 +34,7 @@ class WeatherCtrlImp extends WeatherCtrl {
   Future<void> onInit() async {
     try {
       showLoading();
+      getDateTime();
       await requestLocationPermission();
       await getWeatherLatLng();
       await getInformationWeatherForManyProvince(isRefresh: true);
@@ -118,8 +119,6 @@ class WeatherCtrlImp extends WeatherCtrl {
           weatherResponseModel?.currentWeather?.description;
       currentWeather.value.dateTime =
           weatherResponseModel?.currentWeather?.dateTime;
-      dateTimeFormat.value =
-          DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
       listWeatherForecast.value =
           weatherResponseModel?.weatherInformationList ?? [];
     }
@@ -317,11 +316,20 @@ class WeatherCtrlImp extends WeatherCtrl {
           weatherResponseModel?.currentWeather?.description;
       currentWeather.value.dateTime =
           weatherResponseModel?.currentWeather?.dateTime;
-      dateTimeFormat.value =
-          DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
       listWeatherForecast.value =
           weatherResponseModel?.weatherInformationList ?? [];
       setTextColorWithBackgroundColor();
     }
+  }
+
+  @override
+  void getDateTime() {
+    Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        dateTimeFormat.value =
+            DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+      },
+    );
   }
 }

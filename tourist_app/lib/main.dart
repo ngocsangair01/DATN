@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: AppRoutes.routeLogin,
+      initialRoute: AppRoutes.initialRoute,
       getPages: RoutePage.routes,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

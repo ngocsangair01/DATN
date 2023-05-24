@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tourist_app/cores/utils/widget/show_popup.dart';
-
 import '../../cores/themes/colors.dart';
 import '../../cores/values/const.dart';
 import '../../cores/values/strings.dart';
@@ -12,6 +10,7 @@ import '../repositories/base_request.dart';
 class BaseGetXController extends GetxController {
   RxBool isShowLoading = false.obs;
   RxBool isShowLoadingSubmit = false.obs;
+  RxBool isShowLoadingSubmit2 = false.obs;
   String errorContent = '';
   BaseRequest baseRequestController = Get.find();
 
@@ -46,6 +45,14 @@ class BaseGetXController extends GetxController {
 
   void hideLoadingSubmit() {
     isShowLoadingSubmit.value = false;
+  }
+
+  void showLoadingSubmit2() {
+    isShowLoadingSubmit2.value = true;
+  }
+
+  void hideLoadingSubmit2() {
+    isShowLoadingSubmit2.value = false;
   }
 
   void showLoadingOverlay() {

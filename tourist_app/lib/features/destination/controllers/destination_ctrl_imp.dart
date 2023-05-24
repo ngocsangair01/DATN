@@ -187,10 +187,13 @@ class DestinationCtrlImp extends DestinationCtrl {
   @override
   void scheduler() {
     {
-      Timer.periodic(const Duration(seconds: 60), (timer) {
-        getListDestination(isRefresh: true);
-        getListDestinationDisplay(isRefresh: true);
-      });
+      Timer.periodic(
+        const Duration(seconds: 60),
+        (timer) {
+          getListDestination(isRefresh: true);
+          getListDestinationDisplay(isRefresh: true);
+        },
+      );
     }
   }
 }

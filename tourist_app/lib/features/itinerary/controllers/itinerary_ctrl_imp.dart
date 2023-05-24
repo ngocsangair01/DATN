@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:timeline_list/timeline_model.dart';
-import 'package:tourist_app/features/itinerary/models/itinerary_response.dart';
+import 'package:get/get.dart';
 
-import '../../../cores/utils/widget/base_widget/card_items.dart';
+import '../../map/models/display_itinenary_request.dart';
+import '../../map/uis/map_page.dart';
 import 'itinerary_ctrl.dart';
 
 class ItineraryCtrlImp extends ItineraryCtrl {
@@ -25,34 +24,49 @@ class ItineraryCtrlImp extends ItineraryCtrl {
   @override
   Future<void> getItinerary() async {
     if (formKey.currentState!.validate()) {
-      showLoadingSubmit();
-      itineraryRequest
-        ..address = addressController.text
-        ..maxDestination = int.parse(maxDestinationController.text)
-        ..travelMode = travelMode.value;
-      var response =
-          await itineraryRepository.recommendItinerary(itineraryRequest);
-      if (response.data != null) {
-        itineraryResponse = response.data;
-        destinationOutputs?.value =
-            itineraryResponse?.listDestinationOutput ?? [];
-        timelineItems.value = destinationOutputs?.map((destinationOutput) {
-              return TimelineModel(
-                CardUtils.buildCardCustomRadiusBorder(
-                  child: SizedBox(
-                    height: 100,
-                    child: CardUtils.buildContentInCard(
-                      radius: 20,
-                      url: destinationOutput.images?[0] ?? "",
-                      cardInfo: const SizedBox(),
-                    ),
-                  ),
-                ),
-              );
-            }).toList() ??
-            [];
+      try {
+        showLoadingSubmit();
+        itineraryRequest
+          ..address = addressController.text
+          ..maxDestination = int.parse(maxDestinationController.text)
+          ..travelMode = travelMode.value;
+        var response =
+            await itineraryRepository.recommendItinerary(itineraryRequest);
+        if (response.data != null) {
+          itineraryResponse = response.data;
+          // latOrigin = itineraryResponse?.address?.latitude;
+          // lngOrigin = itineraryResponse?.address?.longitude;
+          destinationOutputs?.value =
+              itineraryResponse?.listDestinationDataOutput ?? [];
+          listDistance?.value = itineraryResponse?.listDistance ?? [];
+          listTime?.value = itineraryResponse?.listTime ?? [];
+        }
+      } finally {
+        hideLoadingSubmit();
       }
-      hideLoadingSubmit();
     }
+  }
+
+  @override
+  void requestItineraryLatLng(int index) {
+    if (index == 0) {
+      latOrigin = itineraryResponse?.addressDataOutput?.latitude;
+      lngOrigin = itineraryResponse?.addressDataOutput?.longitude;
+    } else {
+      latOrigin = destinationOutputs?[index - 1].address?.latitude;
+      lngOrigin = destinationOutputs?[index - 1].address?.longitude;
+    }
+    DisplayItineraryRequest request = DisplayItineraryRequest(
+      startLat: latOrigin,
+      startLng: lngOrigin,
+      endLat: destinationOutputs?[index].address?.latitude,
+      endLng: destinationOutputs?[index].address?.longitude,
+      travelMode: travelMode.value,
+    );
+    Get.to(
+      MapPage(
+        displayItineraryRequest: request,
+      ),
+    );
   }
 }

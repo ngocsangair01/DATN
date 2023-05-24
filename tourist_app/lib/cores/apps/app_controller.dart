@@ -41,9 +41,9 @@ class AppController extends GetxController {
       print(apiKey);
       Get.put(BaseGetXController(), permanent: true);
       try {
-        Get.offNamed(AppRoutes.routeLogin);
+        Get.offAllNamed(AppRoutes.routeStart);
       } catch (e) {
-        Get.offNamed(AppRoutes.routeLogin);
+        Get.offAllNamed(AppRoutes.routeStart);
       }
     });
 

@@ -10,6 +10,9 @@ import '../../../cores/utils/widget/base_widget/card_items.dart';
 import '../../../cores/utils/widget/const_widget.dart';
 import '../../../cores/utils/widget/utils_widget.dart';
 import '../../../cores/values/dimens.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
+import '../../../routes/routes.dart';
 
 part 'favorite_widget.dart';
 
@@ -21,6 +24,11 @@ class FavoritePage extends BaseGetWidget<FavoriteCtrl> {
 
   @override
   Widget buildWidgets() {
-    return _buildFavorite(controller);
+    return GestureDetector(
+      onTap: FocusManager.instance.primaryFocus?.unfocus,
+      child: baseShowLoading(
+        () => _buildFavorite(controller),
+      ),
+    );
   }
 }

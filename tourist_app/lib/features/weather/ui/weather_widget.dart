@@ -22,15 +22,17 @@ Widget _buildPage(WeatherCtrl controller) {
                     fontSize: 18,
                   ),
                 ),
-                Text(
-                  controller.dateTimeFormat.value,
-                  style: TextStyle(
-                    fontFamily: FontAsset.fontRegular,
-                    color: controller.textColor,
-                    fontSize: 10,
+                Obx(
+                  () => Text(
+                    controller.dateTimeFormat.value,
+                    style: TextStyle(
+                      fontFamily: FontAsset.fontRegular,
+                      color: controller.textColor,
+                      fontSize: 10,
+                    ),
+                  ).paddingOnly(
+                    top: AppDimen.paddingSmallest,
                   ),
-                ).paddingOnly(
-                  top: AppDimen.paddingSmallest,
                 ),
               ],
             ),
@@ -228,23 +230,23 @@ Widget _buildBodyWidgetDetail(WeatherCtrl controller) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(
-            controller.weatherNow.length,
-            (index) => Column(
-                  children: [
-                    AutoSizeText(
-                      DateFormat.Hm().format(
-                          controller.weatherNow[index].dateTime ??
-                              DateTime.now()),
-                      style: Get.textTheme.bodyText2!
-                          .copyWith(fontSize: 12, color: Colors.white),
-                    ),
-                    WidgetConst.sizedBox10,
-                    const Icon(
-                      Icons.cloud,
-                      color: Color.fromRGBO(96, 183, 252, 1),
-                    )
-                  ],
-                )),
+          controller.weatherNow.length,
+          (index) => Column(
+            children: [
+              AutoSizeText(
+                DateFormat.Hm().format(
+                    controller.weatherNow[index].dateTime ?? DateTime.now()),
+                style: Get.textTheme.bodyText2!
+                    .copyWith(fontSize: 12, color: Colors.white),
+              ),
+              WidgetConst.sizedBox10,
+              const Icon(
+                Icons.cloud,
+                color: Color.fromRGBO(96, 183, 252, 1),
+              )
+            ],
+          ),
+        ),
       ),
       WidgetConst.sizedBox10,
       WeatherChart2(

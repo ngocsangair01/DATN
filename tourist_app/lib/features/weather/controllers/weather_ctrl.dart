@@ -16,7 +16,7 @@ abstract class WeatherCtrl
   RxBool locationPermissionGranted = true.obs;
   RxBool locationServiceEnable = false.obs;
   RxBool locationEnable = false.obs;
-  DateTime timeSelect = DateTime.now();
+  Rx<DateTime> timeSelect = DateTime.now().obs;
   RxBool isClear = false.obs;
   TextEditingController textSearchProvinceController = TextEditingController();
 
@@ -60,4 +60,5 @@ abstract class WeatherCtrl
   Future<void> getLocationInfo();
   Future<void> getWeatherLatLng();
   Future<void> getWeatherById({int? id});
+  void getDateTime();
 }

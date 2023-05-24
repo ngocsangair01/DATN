@@ -45,10 +45,10 @@ Widget _buildPage(DestinationDetailManagementCtrl controller) {
 
 Widget _buildButtonSubmit(DestinationDetailManagementCtrl controller) {
   return LoadingButton<DestinationDetailManagementCtrl>(
-        controller,
-        title: "Done",
-        func: controller.createAndChangeDestination,
-      );
+    controller,
+    title: "Done",
+    func: controller.createAndChangeDestination,
+  );
 }
 
 Widget _buildDestinationType(DestinationDetailManagementCtrl controller) {
@@ -101,12 +101,22 @@ Widget _buildAddress(DestinationDetailManagementCtrl controller) {
     "Address",
     InputTextModel(
       controller: controller.addressController,
-      hintText: "Description destination",
+      hintText: "Address",
       isReadOnly: true,
     ),
     icon: InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.routeMapPage);
+        Get.toNamed(AppRoutes.routeMapPage)?.then(
+          (value) {
+            if (value != null) {
+              if (value is AddressResponse) {
+                controller.addressController.text =
+                    value.detailAddress.toString();
+                controller.idAddress.value = value.id ?? 0;
+              }
+            }
+          },
+        );
       },
       child: SizedBox(
         width: 20,
@@ -193,27 +203,27 @@ Container _buildImages(DestinationDetailManagementCtrl controller) {
 Widget _buildItemImage(int index, DestinationDetailManagementCtrl controller) {
   return Stack(
     children: [
-      // UtilWidget.buildImageWidget(
-      //   controller.listImage[index],
-      //   heightImage: 75,
-      //   widthImage: 95,
-      //   radius: 10,
-      // ),
       Container(
+        width: 100,
+        height: 75,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
         ),
         child: Image.file(
           File(controller.listImage[index]!.path),
+          fit: BoxFit.cover,
         ),
       ),
       Positioned(
-        top: double.infinity / 2,
-        left: 10,
-        child: Container(
+        top: -5,
+        left: 75,
+        child: SizedBox(
           width: 30,
           height: 30,
-          child: Icon(Icons.delete),
+          child: InkWell(
+            onTap: () => controller.listImage.removeAt(index),
+            child: const Icon(Icons.close),
+          ),
         ),
       ),
     ],

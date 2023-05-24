@@ -37,23 +37,99 @@ Widget _buildPage(ItineraryCtrl controller) {
 }
 
 Widget _buildListItinerary(ItineraryCtrl controller) {
-  return Column(
-    children: [
-      Container(
-        child: Obx(
-          () => Timeline.builder(
-            itemBuilder: (context, index) {
-              return controller.timelineItems[index];
-            },
-            itemCount: controller.timelineItems.length,
-            position: TimelinePosition.Center,
-            shrinkWrap: true,
+  return SizedBox(
+    width: Get.width,
+    // height: 600,
+    child: SingleChildScrollView(
+      child: Column(
+        children: [
+          Obx(
+            () => ListView.builder(
+              shrinkWrap: true,
+              itemCount: controller.destinationOutputs?.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return _buildItemItinerary(index, controller);
+              },
+            ),
           ),
+        ],
+      ).paddingSymmetric(
+        horizontal: AppDimen.defaultPadding,
+        vertical: AppDimen.paddingSmall,
+      ),
+    ),
+  );
+}
+
+Widget _buildItemItinerary(int index, ItineraryCtrl controller) {
+  return TimelineTile(
+    alignment: TimelineAlign.manual,
+    lineXY: 0.2,
+    isFirst: index == 0,
+    isLast: index == (controller.destinationOutputs?.length ?? 1) - 1,
+    indicatorStyle: const IndicatorStyle(
+      width: 20,
+      color: AppColors.baseColorGreen,
+      padding: EdgeInsets.all(6),
+    ),
+    beforeLineStyle: const LineStyle(
+      color: AppColors.baseColorGreen,
+      thickness: 5,
+    ),
+    startChild: SizedBox(
+      height: 200,
+      child: InkWell(
+        onTap: () {
+          controller.requestItineraryLatLng(index);
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '${controller.listDistance?[index]} km',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            UtilWidget.sizedBox10,
+            Text('${controller.listTime?[index]} min'),
+          ],
         ),
       ),
-    ],
-  ).paddingSymmetric(
-      horizontal: AppDimen.defaultPadding, vertical: AppDimen.paddingSmall);
+    ).paddingOnly(top: AppDimen.padding55),
+    endChild: SizedBox(
+      height: 200,
+      child: Stack(
+        children: [
+          CardUtils.buildContentInCard(
+            radius: 20,
+            url: controller.destinationOutputs?[index].images?[0] ?? "",
+            cardInfo: Text(
+              controller.destinationOutputs?[index].address?.detailAddress ??
+                  "",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 100,
+            left: 5,
+            child: Text(
+              '${controller.destinationOutputs?[index].name}',
+              style: TextStyle(
+                color: Colors.white,
+                backgroundColor: Colors.black.withOpacity(0.7),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ).paddingSymmetric(horizontal: AppDimen.paddingSmall),
+  );
 }
 
 Widget _buildButton(ItineraryCtrl controller) {

@@ -7,9 +7,8 @@ import '../repositories/login_repository.dart';
 
 abstract class LoginCtrl extends BaseGetXController {
   TextEditingController emailController =
-      TextEditingController(text: 'admin@admin.admin');
-  TextEditingController passwordController =
-      TextEditingController(text: 'Abc123!@#');
+      TextEditingController(text: HIVE_APP.get('user_name'));
+  TextEditingController passwordController = TextEditingController();
   TextEditingController searchCtr = TextEditingController();
   TextEditingController adult = TextEditingController();
   TextEditingController kids = TextEditingController();
@@ -22,4 +21,5 @@ abstract class LoginCtrl extends BaseGetXController {
     loginRepository = LoginRepository(this);
   }
   void login();
+  Future<void> loginWithFingerPrint();
 }

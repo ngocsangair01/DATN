@@ -8,6 +8,7 @@ import com.ms.tourist_app.application.input.destinations.*;
 import com.ms.tourist_app.application.mapper.DestinationMapper;
 import com.ms.tourist_app.application.output.destinations.CommentDestinationDataOutput;
 import com.ms.tourist_app.application.output.destinations.DestinationDataOutput;
+import com.ms.tourist_app.application.output.destinations.GetListDestinationCenterRadiusOutput;
 import com.ms.tourist_app.application.service.DestinationService;
 import com.ms.tourist_app.application.utils.JwtUtil;
 import com.ms.tourist_app.domain.entity.id.CommentDestinationId;
@@ -41,6 +42,7 @@ public class DestinationController {
         return ResponseUtil.restSuccess(dataOutput);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PutMapping(UrlConst.Destination.getDestinationId)
     public ResponseEntity<?> editDestination(@PathVariable(UrlConst.id) Long id, @Valid DestinationDataParameter parameter) {
         DestinationDataInput dataInput = destinationMapper.createDestinationInput(parameter);
@@ -48,6 +50,7 @@ public class DestinationController {
         return ResponseUtil.restSuccess(dataOutput);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping(UrlConst.Destination.destinationByUser)
     public ResponseEntity<?> getListDestinationByUser(@PathVariable(UrlConst.id) Long id) {
         List<DestinationDataOutput> dataOutputs = destinationService.getListDestinationByCreateBy(id);
@@ -61,7 +64,6 @@ public class DestinationController {
         return ResponseUtil.restSuccess(destinationDataOutput);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping(UrlConst.Destination.destinationFilter)
     public ResponseEntity<?> getListDestinationByProvince(@Valid GetListDestinationByProvinceParameter parameter) {
         GetListDestinationByProvinceInput input = new GetListDestinationByProvinceInput(parameter.getPage(), parameter.getSize(), parameter.getIdProvince());
@@ -69,7 +71,6 @@ public class DestinationController {
         return ResponseUtil.restSuccess(outputs);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping(UrlConst.Destination.destination)
     public ResponseEntity<?> getListDestinationFilter(@Valid GetListDestinationByKeywordParameter parameter) {
         GetListDestinationByKeywordInput input = new GetListDestinationByKeywordInput(parameter.getKeyword(), parameter.getPage(), parameter.getSize());
@@ -80,8 +81,9 @@ public class DestinationController {
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping(UrlConst.Destination.destinationRadius)
     public ResponseEntity<?> getListDestinationCenterRadius(@Valid GetListDestinationCenterRadiusParameter parameter) {
-        GetListDestinationCenterRadiusInput input = new GetListDestinationCenterRadiusInput(parameter.getPage(), parameter.getSize(), parameter.getKeyword(), parameter.getRadius());
-        List<DestinationDataOutput> outputs = destinationService.getListDestinationCenterRadius(input);
+        GetListDestinationCenterRadiusInput input = new GetListDestinationCenterRadiusInput(parameter.getPage(),parameter.getSize(), parameter.getKeyword(),
+                                            parameter.getRadius());
+        GetListDestinationCenterRadiusOutput outputs = destinationService.getListDestinationCenterRadius(input);
         return ResponseUtil.restSuccess(outputs);
     }
 

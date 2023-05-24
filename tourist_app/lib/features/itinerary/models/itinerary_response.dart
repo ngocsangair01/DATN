@@ -1,26 +1,28 @@
 class ItineraryResponse {
   ItineraryResponse({
-    this.address,
-    this.listDestinationOutput,
+    this.addressDataOutput,
+    this.listDestinationDataOutput,
     this.listTime,
     this.listDistance,
     this.travelMode,
   });
 
-  Address? address;
-  List<DestinationOutput>? listDestinationOutput;
+  Address? addressDataOutput;
+  List<ListDestinationDataOutput>? listDestinationDataOutput;
   List<double>? listTime;
   List<double>? listDistance;
   String? travelMode;
 
   factory ItineraryResponse.fromJson(Map<String, dynamic> json) {
     return ItineraryResponse(
-      address:
-          json["address"] == null ? null : Address.fromJson(json["address"]),
-      listDestinationOutput: json["listDestinationOutput"] == null
+      addressDataOutput: json["addressDataOutput"] == null
+          ? null
+          : Address.fromJson(json["addressDataOutput"]),
+      listDestinationDataOutput: json["listDestinationDataOutput"] == null
           ? []
-          : List<DestinationOutput>.from(json["listDestinationOutput"]!
-              .map((x) => DestinationOutput.fromJson(x))),
+          : List<ListDestinationDataOutput>.from(
+              json["listDestinationDataOutput"]!
+                  .map((x) => ListDestinationDataOutput.fromJson(x))),
       listTime: json["listTime"] == null
           ? []
           : List<double>.from(json["listTime"]!.map((x) => x)),
@@ -32,9 +34,9 @@ class ItineraryResponse {
   }
 
   Map<String, dynamic> toJson() => {
-        "address": address?.toJson(),
-        "listDestinationOutput":
-            listDestinationOutput?.map((x) => x?.toJson()).toList(),
+        "addressDataOutput": addressDataOutput?.toJson(),
+        "listDestinationDataOutput":
+            listDestinationDataOutput?.map((x) => x.toJson()).toList(),
         "listTime": listTime?.map((x) => x).toList(),
         "listDistance": listDistance?.map((x) => x).toList(),
         "travelMode": travelMode,
@@ -43,68 +45,72 @@ class ItineraryResponse {
 
 class Address {
   Address({
-    this.detailAddress,
-    this.slugWithSpace,
-    this.slug,
-    this.slugWithoutSpace,
-    this.longitude,
-    this.latitude,
     this.id,
     this.createBy,
     this.createAt,
     this.updateBy,
     this.updateAt,
+    this.slug,
+    this.longitude,
+    this.latitude,
+    this.province,
+    this.detailAddress,
+    this.slugWithSpace,
+    this.slugWithoutSpace,
     this.status,
   });
 
-  String? detailAddress;
-  String? slugWithSpace;
-  String? slug;
-  String? slugWithoutSpace;
-  double? longitude;
-  double? latitude;
   int? id;
   int? createBy;
   DateTime? createAt;
   int? updateBy;
   DateTime? updateAt;
+  String? slug;
+  double? longitude;
+  double? latitude;
+  dynamic province;
+  String? detailAddress;
+  String? slugWithSpace;
+  String? slugWithoutSpace;
   bool? status;
 
   factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
-      detailAddress: json["detailAddress"],
-      slugWithSpace: json["slugWithSpace"],
-      slug: json["slug"],
-      slugWithoutSpace: json["slugWithoutSpace"],
-      longitude: json["longitude"],
-      latitude: json["latitude"],
       id: json["id"],
       createBy: json["createBy"],
       createAt: DateTime.tryParse(json["createAt"] ?? ""),
       updateBy: json["updateBy"],
       updateAt: DateTime.tryParse(json["updateAt"] ?? ""),
+      slug: json["slug"],
+      longitude: json["longitude"],
+      latitude: json["latitude"],
+      province: json["province"],
+      detailAddress: json["detailAddress"],
+      slugWithSpace: json["slugWithSpace"],
+      slugWithoutSpace: json["slugWithoutSpace"],
       status: json["status"],
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "detailAddress": detailAddress,
-        "slugWithSpace": slugWithSpace,
-        "slug": slug,
-        "slugWithoutSpace": slugWithoutSpace,
-        "longitude": longitude,
-        "latitude": latitude,
         "id": id,
         "createBy": createBy,
         "createAt": createAt?.toIso8601String(),
         "updateBy": updateBy,
         "updateAt": updateAt?.toIso8601String(),
+        "slug": slug,
+        "longitude": longitude,
+        "latitude": latitude,
+        "province": province,
+        "detailAddress": detailAddress,
+        "slugWithSpace": slugWithSpace,
+        "slugWithoutSpace": slugWithoutSpace,
         "status": status,
       };
 }
 
-class DestinationOutput {
-  DestinationOutput({
+class ListDestinationDataOutput {
+  ListDestinationDataOutput({
     this.id,
     this.name,
     this.description,
@@ -122,8 +128,8 @@ class DestinationOutput {
   List<String>? images;
   List<dynamic>? commentDestinations;
 
-  factory DestinationOutput.fromJson(Map<String, dynamic> json) {
-    return DestinationOutput(
+  factory ListDestinationDataOutput.fromJson(Map<String, dynamic> json) {
+    return ListDestinationDataOutput(
       id: json["id"],
       name: json["name"],
       description: json["description"],

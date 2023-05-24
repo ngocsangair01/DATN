@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.util.List;
@@ -33,6 +34,7 @@ public class CommentDestination {
     private Destination destination;
 
     @Column(name = AppStr.CommentDestination.content)
+    @Nationalized
     private String content;
 
     @Column(name = AppStr.CommentDestination.rating)

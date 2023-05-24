@@ -1,6 +1,6 @@
 part of 'profile_page.dart';
 
-Widget _buildPage() {
+Widget _buildPage(ProfileCtrl controller) {
   return PageUtils.buildPageStackAppBar(
     positionTop: 90,
     appBar: SafeArea(
@@ -40,34 +40,38 @@ Widget _buildPage() {
         ),
       ),
     ),
-    body: SizedBox(
-      width: Get.width,
-      height: Get.height,
-      child: Column(
-        children: [
-          _buildUser(),
-          _buildFirstLine(),
-        ],
-      ),
-    ),
+    body: HIVE_APP.get('user_name') != null
+        ? SizedBox(
+            width: Get.width,
+            height: Get.height,
+            child: Column(
+              children: [
+                _buildUser(controller),
+                _buildFirstLine(controller),
+              ],
+            ),
+          )
+        : Center(
+            child: _buildButton(controller),
+          ),
   );
 }
 
-Widget _buildFirstLine() {
+Widget _buildFirstLine(ProfileCtrl controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      _buildInformation().paddingAll(
+      _buildInformation(controller).paddingAll(
         AppDimen.paddingVerySmall,
       ),
-      _buildDestination().paddingAll(
+      _buildDestination(controller).paddingAll(
         AppDimen.paddingVerySmall,
       ),
     ],
   );
 }
 
-Widget _buildDestination() {
+Widget _buildDestination(ProfileCtrl controller) {
   return InkWell(
     onTap: () {
       Get.toNamed(AppRoutes.routeDestinationManagement);
@@ -108,43 +112,48 @@ Widget _buildDestination() {
   );
 }
 
-Widget _buildInformation() {
-  return Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      color: Colors.white,
-    ),
-    width: Get.width / 2.2,
-    height: 70,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 2,
-              color: AppColors.baseColorGreen,
+Widget _buildInformation(ProfileCtrl controller) {
+  return InkWell(
+    onTap: () {
+      Get.toNamed(AppRoutes.routeInformation);
+    },
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+      ),
+      width: Get.width / 2.2,
+      height: 70,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 2,
+                color: AppColors.baseColorGreen,
+              ),
+              borderRadius: BorderRadius.circular(50),
             ),
-            borderRadius: BorderRadius.circular(50),
-          ),
-          width: 26,
-          height: 26,
-          child: SvgPicture.asset(
-            ImageAsset.imgUser,
-            color: AppColors.baseColorGreen,
-          ).paddingAll(3),
-        ).paddingOnly(top: AppDimen.paddingVerySmall),
-        const Text(
-          "Information",
-          style: TextStyle(fontSize: 16, fontFamily: FontAsset.fontBold),
-        ).paddingOnly(bottom: AppDimen.paddingVerySmall),
-      ],
-    ).paddingOnly(left: AppDimen.paddingVerySmall),
+            width: 26,
+            height: 26,
+            child: SvgPicture.asset(
+              ImageAsset.imgUser,
+              color: AppColors.baseColorGreen,
+            ).paddingAll(3),
+          ).paddingOnly(top: AppDimen.paddingVerySmall),
+          const Text(
+            "Information",
+            style: TextStyle(fontSize: 16, fontFamily: FontAsset.fontBold),
+          ).paddingOnly(bottom: AppDimen.paddingVerySmall),
+        ],
+      ).paddingOnly(left: AppDimen.paddingVerySmall),
+    ),
   );
 }
 
-Widget _buildUser() {
+Widget _buildUser(ProfileCtrl controller) {
   return Row(
     children: [
       SizedBox(
@@ -175,6 +184,40 @@ Widget _buildUser() {
           color: Colors.white,
         ),
       ).paddingOnly(left: AppDimen.paddingSmall),
+      Expanded(
+        child: InkWell(
+          onTap: () async {
+            await controller.logout();
+          },
+          child: SvgPicture.asset(
+            ImageAsset.imgLogout,
+            color: Colors.white,
+          ),
+        ),
+      ),
     ],
+  );
+}
+
+Widget _buildButton(ProfileCtrl controller) {
+  return InkWell(
+    onTap: () {
+      Get.toNamed(AppRoutes.routeLogin);
+    },
+    child: CardUtils.buildCardCustomRadiusBorder(
+      radiusAll: AppDimen.radiusButtonDefault,
+      boxShadows: BoxShadowsConst.shadowCard,
+      child: UtilButton.buildButton(
+        ButtonModel(
+          btnTitle: 'LOG IN',
+          colors: [
+            AppColors.baseColorGreen,
+          ],
+          funcHandle: () async {
+            Get.toNamed(AppRoutes.routeLogin);
+          },
+        ),
+      ),
+    ),
   );
 }

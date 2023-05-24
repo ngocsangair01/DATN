@@ -1,32 +1,30 @@
 class AppStr {
   static const String appName = "Tourist App";
-  static const String errorConnectTimeOut = 'Kết nối quá hạn';
-  static const String errorConnectFailedStr = 'Không thể kết nối tới máy chủ';
+  static const String errorConnectTimeOut = 'connection expired';
+  static const String errorConnectFailedStr = 'Cant connect to server';
   static const String error400 = 'Bad request';
-  static const String error401 = 'Bạn không có quyền truy cập ';
+  static const String error401 = 'you do not have access';
   static const String error404 = 'Đường dẫn không hợp lệ';
   static const String errorInternalServer = "Lỗi hệ thống";
-  static const String error502 = 'Server đang bảo trì.';
+  static const String error502 = 'server is under maintenance';
   static const String error503 = 'Server đang bảo trì';
 
-  static const String close = "Đóng";
+  static const String close = "Close";
   static const String notification = 'Notification';
-  static const String cancel = 'Hủy';
+  static const String cancel = 'Cancel';
   static const String permissionHelper =
-      'không có quyền truy cập trên thiết bị của bạn. Vui lòng cấp thêm quyền cho ứng dụng để tiếp tục thao tác';
-  static const String openSettings = 'Mở cài đặt';
-  static const String confirm = "Xác nhận";
+      'You do not have access on your device. Please give the app more permission to continue working';
+  static const String openSettings = 'Open setting';
+  static const String confirm = "Confirm";
   static const String mainFont = 'Inter';
   static const String hintSearch = 'Search';
-  static const String focus24h = 'Dự báo 24h';
-  static const String threeDayHours = "72 giờ";
-  static const String tomorrowDay = "Ngày mai";
-  static const String now = "Hôm nay";
-  static const String before = "Hôm qua";
-  static const String errorEmpty = ' không được để trống!';
-  static const String menu = 'Thao tác';
-  static const String productDetailNotEmpty = "Tài khoản không hợp lệ!";
-  static const String errorEmail = "Email không hợp lệ";
-  static const String errorPhoneNumberType =
-      'Số điện thoại là số có 10-14 chữ số';
+  static const String focus24h = '24 hour weather forecast';
+  static const String threeDayHours = "72 hours";
+  static const String tomorrowDay = "Tomorrow";
+  static const String now = "Todat";
+  static const String before = "Yesterday";
+  static const String errorEmpty = 'Must not empty';
+  static const String menu = 'Menu';
+  static const String productDetailNotEmpty = "Account not valid";
+  static const String errorEmail = "Email not valid";
 }

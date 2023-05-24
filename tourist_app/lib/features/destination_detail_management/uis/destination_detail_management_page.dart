@@ -17,6 +17,7 @@ import 'package:tourist_app/cores/values/dimens.dart';
 import 'package:tourist_app/features/destination/ui/destination_page.dart';
 import 'package:tourist_app/features/destination_detail_management/controllers/destination_detail_management_ctrl.dart';
 import 'package:tourist_app/features/destination_detail_management/controllers/destination_detail_management_ctrl_imp.dart';
+import 'package:tourist_app/features/map/models/address_response.dart';
 import 'package:tourist_app/routes/routes.dart';
 
 import '../../../cores/utils/widget/base_widget/page.dart';

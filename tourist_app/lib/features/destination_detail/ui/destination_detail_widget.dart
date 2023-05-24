@@ -11,21 +11,6 @@ Widget _buildPageDestinationDetail(DestinationDetailCtrl controller) {
         fontSize: 20,
         color: Colors.black,
       ),
-      actions: [
-        UtilButton.baseOnAction(
-          onTap: () {},
-          child: SizedBox(
-            width: 24,
-            height: 24,
-            child: SvgPicture.asset(
-              ImageAsset.imgSearch,
-              color: Colors.black,
-            ),
-          ),
-        ).paddingOnly(
-          right: AppDimen.paddingSmall,
-        ),
-      ],
     ),
     body: Column(
       children: [
@@ -107,22 +92,22 @@ Widget _buildPageDestinationDetail(DestinationDetailCtrl controller) {
 }
 
 Widget _buildDetail(int index, DestinationDetailCtrl controller) {
-  return SizedBox(
-    height: Get.height / 2.7,
-    child: CardUtils.buildCardCustomRadiusBorder(
-      child: CardUtils.buildContentInCard(
-        radius: 20,
-        url: controller.listImage[index],
-        cardInfo: const SizedBox(),
-      ),
-    ),
+  return CardUtils.buildContentInCard(
+    func: () {
+      BuildContext context = Get.context!;
+      var nav = Navigator.of(context);
+      nav.push<void>(_createRoute(context, controller.listImage[index]));
+    },
+    radius: 20,
+    url: controller.listImage[index],
+    cardInfo: const SizedBox(),
   );
 }
 
 Widget buildOtherPlace(DestinationDetailCtrl controller) {
   return UtilWidget.buildListScrollWithTitle(
     leading: UtilWidget.buildTitle(text: 'Other place'),
-    actionWidget: UtilButton.buildTextButton(title: 'View Detail'),
+    // actionWidget: UtilButton.buildTextButton(title: 'View Detail'),
     itemsCount: controller.listOther.length,
     itemsWidget: (index) => _buildItemInOtherPlace(index, controller),
     scrollDirection: Axis.horizontal,
@@ -138,19 +123,24 @@ Widget _buildItemInOtherPlace(int index, DestinationDetailCtrl controller) {
       UtilWidget.buildImageWidget(
         controller.listOther[index].images[0],
         heightImage: 75,
-        widthImage: 95,
+        widthImage: 100,
         radius: 10,
       ),
       Positioned(
-          top: double.infinity / 2,
-          left: 10,
-          child: Container(
-              color: Colors.black.withOpacity(0.4),
-              child: Text(
-                controller.listOther[index].name ?? "",
-                style: Get.textTheme.bodyText1!
-                    .copyWith(color: AppColors.textColorWhite),
-              )))
+        top: 45,
+        child: Container(
+          constraints: const BoxConstraints(
+            maxWidth: 75,
+          ),
+          color: Colors.black.withOpacity(0.4),
+          child: Text(
+            controller.listOther[index].name,
+            style: Get.textTheme.bodyText1!
+                .copyWith(color: AppColors.textColorWhite),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ),
     ],
   );
 }
@@ -313,26 +303,6 @@ Widget _buildItemComment(
                   height: 10,
                   thickness: 2,
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //   children: [
-                //     UtilWidget.buildAction(
-                //         text: "like",
-                //         iconData: Icons.favorite_outline,
-                //         iconSize: AppDimen.sizeIconSmall),
-                //     UtilWidget.buildAction(
-                //         text: "comment",
-                //         iconData: Icons.favorite_outline,
-                //         iconSize: AppDimen.sizeIconSmall),
-                //     UtilWidget.buildAction(
-                //         text: "share",
-                //         iconData: Icons.favorite_outline,
-                //         iconSize: AppDimen.sizeIconSmall),
-                //   ],
-                // ).paddingOnly(
-                //   right: AppDimen.paddingMedium,
-                //   bottom: AppDimen.paddingVerySmall,
-                // ),
               ],
             ).paddingOnly(
               top: AppDimen.paddingSmall,
@@ -347,21 +317,82 @@ Widget _buildItemComment(
 }
 
 Widget _buildButton(DestinationDetailCtrl controller) {
-  return CardUtils.buildCardCustomRadiusBorder(
-    radiusAll: AppDimen.radiusButtonDefault,
-    boxShadows: BoxShadowsConst.shadowCard,
-    child: UtilButton.buildButton(
-      ButtonModel(
-        btnTitle: 'INTERESTED',
-        colors: [
-          AppColors.baseColorGreen,
-        ],
-        funcHandle: () {
-          Get.to(ItineraryPage(
-            address: controller.destination?.address?.detailAddress,
-          ));
-        },
+  return InkWell(
+    onTap: () async {
+      await controller.addFavoriteDes(controller.idDestination ?? 0);
+    },
+    child: CardUtils.buildCardCustomRadiusBorder(
+      radiusAll: AppDimen.radiusButtonDefault,
+      boxShadows: BoxShadowsConst.shadowCard,
+      child: UtilButton.buildButton(
+        ButtonModel(
+          btnTitle: 'INTERESTED',
+          colors: [
+            AppColors.baseColorGreen,
+          ],
+          funcHandle: () async {
+            await controller.addFavoriteDes(controller.idDestination ?? 0);
+          },
+        ),
       ),
     ),
   );
+}
+
+Route _createRoute(BuildContext parentContext, String image) {
+  return PageRouteBuilder<void>(
+    pageBuilder: (context, animation, secondaryAnimation) {
+      return _SecondPage(image);
+    },
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var rectAnimation = _createTween(parentContext)
+          .chain(CurveTween(curve: Curves.ease))
+          .animate(animation);
+
+      return Stack(
+        children: [
+          PositionedTransition(rect: rectAnimation, child: child),
+        ],
+      );
+    },
+  );
+}
+
+Tween<RelativeRect> _createTween(BuildContext context) {
+  var windowSize = MediaQuery.of(context).size;
+  var box = context.findRenderObject() as RenderBox;
+  var rect = box.localToGlobal(Offset.zero) & box.size;
+  var relativeRect = RelativeRect.fromSize(rect, windowSize);
+
+  return RelativeRectTween(
+    begin: relativeRect,
+    end: RelativeRect.fill,
+  );
+}
+
+class _SecondPage extends StatelessWidget {
+  final String imageAssetName;
+
+  const _SecondPage(this.imageAssetName);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Material(
+          child: InkWell(
+            onTap: () => Navigator.of(context).pop(),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Image.network(
+                imageAssetName,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

@@ -26,6 +26,7 @@ public class AuthController {
 
     @PostMapping(UrlConst.Auth.login)
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest){
+        authService.login(authenticationRequest);
         return ResponseUtil.restSuccess(authService.login(authenticationRequest));
     }
 

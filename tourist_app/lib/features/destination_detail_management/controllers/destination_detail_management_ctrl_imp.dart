@@ -60,14 +60,17 @@ class DestinationDetailManagementCtrlImp
   @override
   Future<void> createAndChangeDestination() async {
     KeyBoard.hide;
-    showLoadingSubmit();
     if (formKey.currentState!.validate()) {
-      final destination = destinationRequestCreate();
-      if (isCreate.value) {
-        await createDestination(destination);
+      try {
+        showLoadingSubmit();
+        final destination = destinationRequestCreate();
+        if (isCreate.value) {
+          await createDestination(destination);
+        }
+      } finally {
+        hideLoadingSubmit();
       }
     }
-    hideLoadingSubmit();
   }
 
   Future<void> createDestination(DestinationRequest destinationRequest) async {
@@ -79,8 +82,8 @@ class DestinationDetailManagementCtrlImp
       if (response.restStatus != "SUCCESS") {
         showSnackBar(response.reasons.first, isSuccess: false);
       } else {
-        destinationManagementCtrl.getListDestinationByUser(isRefresh: true);
         Get.back(result: "SUCCESS");
+        destinationManagementCtrl.getListDestinationByUser(isRefresh: true);
       }
       KeyBoard.hide();
     }

@@ -22,6 +22,7 @@ class BaseRepository {
     String? urlOther,
     Map<String, String>? headersUrlOther,
     bool isQueryParametersPost = false,
+    bool isQueryParametersGet = true,
     BaseOptions? dioOptions,
     Function(Object error)? functionError,
   }) {
@@ -33,6 +34,7 @@ class BaseRepository {
       urlOther: urlOther,
       headersUrlOther: headersUrlOther,
       isQueryParametersPost: isQueryParametersPost,
+      isQueryParametersGet: isQueryParametersGet,
       controller: controller,
       dioOptions: dioOptions,
       functionError: functionError,

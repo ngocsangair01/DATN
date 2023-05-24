@@ -7,6 +7,7 @@ import 'package:tourist_app/features/destination/repositories/destination_reposi
 
 abstract class DestinationDetailCtrl extends BasePageSearchController {
   ///For destination detail
+  late int? idDestination;
   RxString nameDestination = "".obs;
   RxString description = "".obs;
   RxInt currentPageScroll = 0.obs;
@@ -24,8 +25,9 @@ abstract class DestinationDetailCtrl extends BasePageSearchController {
     destinationRepository = DestinationRepository(this);
   }
 
-  Future<void> getDataDestination();
+  Future<void> getDataDestination({isRefresh = false});
   Future<void> getDestinationDetail(int id);
   Future<void> getDestinationByCreateAt({bool isRefresh = false});
   Future<void> commentDestination();
+  Future<void> addFavoriteDes(int id);
 }

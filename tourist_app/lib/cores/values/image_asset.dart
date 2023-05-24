@@ -38,4 +38,6 @@ class ImageAsset {
   static const iconCloud = 'asset/Resource/cloud.svg';
   static const imgHistory = 'asset/Resource/history.svg';
   static const imgAddImage = 'asset/Resource/image-add.svg';
+  static const imgLogout = 'asset/Resource/logout.svg';
+  static const imgFingerprint = 'asset/Resource/fingerprint.svg';
 }

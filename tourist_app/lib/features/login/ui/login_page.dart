@@ -29,14 +29,6 @@ class LoginPage extends BaseGetWidget<LoginCtrl> {
 
   @override
   Widget buildWidgets() {
-    // return Scaffold(
-    //   body: Column(
-    //     mainAxisAlignment: MainAxisAlignment.center,
-    //     children: const [
-    //       WeatherChart2(),
-    //     ],
-    //   ),
-    // );
     Get.put(AppController(), permanent: true);
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(

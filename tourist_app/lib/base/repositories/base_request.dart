@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:crypto/crypto.dart' as crypto;
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
+import 'package:get/get_connect/http/src/certificates/certificates.dart';
 
 import '../../cores/apps/app_controller.dart';
 import '../../cores/values/const.dart';
@@ -66,6 +67,7 @@ class BaseRequest {
       String? urlOther,
       Map<String, String>? headersUrlOther,
       bool isQueryParametersPost = false,
+      bool isQueryParametersGet = true,
       required BaseGetXController controller,
       BaseOptions? dioOptions,
       Function(Object error)? functionError}) async {
@@ -90,8 +92,8 @@ class BaseRequest {
             responseType: ResponseType.json,
           );
 
-    CancelToken _cancelToken = CancelToken();
-    controller.addCancelToken(_cancelToken);
+    CancelToken cancelToken = CancelToken();
+    controller.addCancelToken(cancelToken);
     try {
       if (requestMethod == RequestMethod.POST) {
         if (isQueryParametersPost) {
@@ -99,14 +101,14 @@ class BaseRequest {
             url,
             queryParameters: jsonMap,
             options: options,
-            cancelToken: _cancelToken,
+            cancelToken: cancelToken,
           );
         } else {
           response = await dio.post(
             url,
             data: jsonMap,
             options: options,
-            cancelToken: _cancelToken,
+            cancelToken: cancelToken,
           );
         }
       } else if (requestMethod == RequestMethod.PUT) {
@@ -114,34 +116,42 @@ class BaseRequest {
           url,
           data: jsonMap,
           options: options,
-          cancelToken: _cancelToken,
+          cancelToken: cancelToken,
         );
       } else if (requestMethod == RequestMethod.DELETE) {
         response = await dio.delete(
           url,
           data: jsonMap,
           options: options,
-          cancelToken: _cancelToken,
+          cancelToken: cancelToken,
         );
       } else if (requestMethod == RequestMethod.PATCH) {
         response = await dio.patch(
           url,
           data: jsonMap,
           options: options,
-          cancelToken: _cancelToken,
+          cancelToken: cancelToken,
         );
       } else {
-        response = await dio.get(
-          url,
-          queryParameters: jsonMap,
-          options: options,
-          cancelToken: _cancelToken,
-        );
+        if (isQueryParametersGet) {
+          response = await dio.get(
+            url,
+            queryParameters: jsonMap,
+            options: options,
+            cancelToken: cancelToken,
+          );
+        } else {
+          response = await dio.get(
+            url,
+            data: jsonMap,
+            options: options,
+            cancelToken: cancelToken,
+          );
+        }
       }
       return response.data;
     } catch (e) {
-      controller.cancelRequest(_cancelToken);
-
+      controller.cancelRequest(cancelToken);
       return functionError != null ? functionError(e) : showDialogError(e);
     }
   }

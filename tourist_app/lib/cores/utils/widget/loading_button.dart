@@ -8,12 +8,17 @@ import '../../values/dimens.dart';
 
 class LoadingButton<T extends BaseGetXController> extends StatelessWidget {
   const LoadingButton(this.controller,
-      {Key? key, required this.title, required this.func, this.width})
+      {Key? key,
+      required this.title,
+      required this.func,
+      this.width,
+      this.icon})
       : super(key: key);
   final T controller;
   final String title;
   final Function() func;
   final double? width;
+  final IconData? icon;
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -24,6 +29,37 @@ class LoadingButton<T extends BaseGetXController> extends StatelessWidget {
         backgroundColor: AppColors.baseColorGreen,
         radius: 50,
         width: width ?? Get.width * AppDimen.resolutionWidgetButton,
+        icon: !controller.isShowLoadingSubmit.value ? icon : null,
+      ).paddingOnly(bottom: AppDimen.paddingVerySmall),
+    );
+  }
+}
+
+class LoadingButton2<T extends BaseGetXController> extends StatelessWidget {
+  const LoadingButton2(this.controller,
+      {Key? key,
+      required this.title,
+      required this.func,
+      this.width,
+      this.icon})
+      : super(key: key);
+  final T controller;
+  final String title;
+  final Function() func;
+  final double? width;
+  final IconData? icon;
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => UtilWidget.buildButton(
+        title,
+        func,
+        isLoading: controller.isShowLoadingSubmit2.value,
+        backgroundColor: AppColors.baseColorGreen,
+        radius: 50,
+        width: width ?? Get.width * AppDimen.resolutionWidgetButton,
+        icon: !controller.isShowLoadingSubmit2.value ? icon : null,
+        paddingRight: 0,
       ).paddingOnly(bottom: AppDimen.paddingVerySmall),
     );
   }

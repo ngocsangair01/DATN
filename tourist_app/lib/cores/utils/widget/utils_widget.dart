@@ -40,6 +40,7 @@ class UtilWidget {
   }
 
   static const Widget sizedBox10 = SizedBox(height: 10);
+  static const Widget sizedBox10W = SizedBox(width: 10);
 
   static Widget buildSmartRefresher({
     required RefreshController refreshController,
@@ -485,8 +486,7 @@ class UtilWidget {
               validator: (val) {
                 if (isRequired) {
                   if (val!.isStringEmpty) {
-                    //return AppStr.productDetailNotEmpty.tr;
-                    return "label + AppStr.errorEmpty";
+                    return "must not null";
                   }
                 }
                 return val.validator(typeInput, minLength: minLengthInputForm);
@@ -596,7 +596,6 @@ class UtilWidget {
     // TextStyle? titleStyle,
     // String? subtitle,
     // TextStyle? subStyle,
-    Function()? onTap,
     Widget? trailing,
     String? urlImages,
     double? heightImagesLeading,
@@ -626,7 +625,6 @@ class UtilWidget {
           title: title,
           subtitle: subtitle,
           trailing: trailing,
-          onTap: onTap ?? () {},
         ));
   }
 
@@ -689,6 +687,7 @@ class UtilWidget {
     Color? textColor,
     double? fontSize,
     double? radius,
+    double? paddingRight,
     MainAxisAlignment? alignment,
     AlignmentGeometry? alignmentText,
     IconData? icon,
@@ -724,8 +723,9 @@ class UtilWidget {
                     child: Icon(
                       icon,
                       color: AppColors.textColorWhite,
+                      size: 18,
                     ).paddingOnly(
-                      right: AppDimen.paddingVerySmall,
+                      right: paddingRight ?? AppDimen.paddingVerySmall,
                     ),
                   ),
                   Expanded(
@@ -825,8 +825,10 @@ class UtilWidget {
     double? heightImage,
     double? widthImage,
     double? radius,
+    Function? func,
   }) {
     return CardUtils.buildCardCustomRadiusBorder(
+      function: func,
       radiusAll: radius,
       child: Container(
         height: heightImage ?? 50,
